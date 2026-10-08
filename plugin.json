@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "skills-hep",
+  "version": "0.1.0",
+  "description": "Reusable skills for high-energy physics research: scientific plotting and visual review.",
+  "author": {
+    "name": "CHE Yuzhi"
+  }
+}

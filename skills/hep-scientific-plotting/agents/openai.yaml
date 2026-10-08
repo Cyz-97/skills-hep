@@ -1,0 +1,4 @@
+interface:
+  display_name: "高能物理科研绘图"
+  short_description: "创建并检查适合论文发表的高能物理图"
+  default_prompt: "使用 $hep-scientific-plotting 创建并检查一张适合论文发表的 DELPHI 科研图。"

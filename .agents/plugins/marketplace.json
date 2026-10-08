@@ -1,0 +1,20 @@
+{
+  "name": "skills-hep",
+  "interface": {
+    "displayName": "HEP Skills"
+  },
+  "plugins": [
+    {
+      "name": "skills-hep",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
