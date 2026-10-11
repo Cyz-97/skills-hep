@@ -17,7 +17,7 @@ from check_plot_geometry import audit_figure  # noqa: E402
 
 
 def build_compliant_figure():
-    """按规范确定性配方构造的一维 Data/MC 图：4:3、band 预留、mplhep 标头。"""
+    """构造直接使用标准绘图 API 的 Data/MC 图，比例不作为门槛。"""
     rng = np.random.default_rng(1994)
     edges = np.linspace(0.0, 10.0, 21)
     centers = 0.5 * (edges[:-1] + edges[1:])
@@ -33,10 +33,6 @@ def build_compliant_figure():
         fill=False, linewidth=0, edgecolor="C0", hatch="////", alpha=0.55,
     )
     ax.errorbar(centers, data, yerr=data_err, color="black", ls="none", marker="o")
-    ax.set_box_aspect(3 / 4)
-    content_top = float(np.max(data + data_err))
-    lower, upper = ax.get_ylim()
-    ax.set_ylim(lower, max(upper, lower + (content_top - lower) / 0.6))
     mplhep.label.exp_label(
         loc=1, exp="DELPHI", data=False, llabel="Open Data",
         italic=[False, True, False], fontsize=8, rlabel="1994", ax=ax,
@@ -54,8 +50,8 @@ class GeometryAuditTests(unittest.TestCase):
             plt.close(fig)
         self.assertEqual([f for f in findings if f.level == "错误"], [])
 
-    def test_violations_are_reported(self):
-        # 8x5 画布默认 axes 比例偏离 4:3；legend 压在左上数据区；内容占满图框。
+    def test_possible_overlap_is_advisory(self):
+        # 任意画布比例与正常留白均允许；只提示可能的实际遮挡。
         fig, ax = plt.subplots(figsize=(8, 5))
         edges = np.linspace(0.0, 1.0, 6)
         values = np.array([5.0, 4.0, 3.0, 2.0, 1.0])
@@ -66,7 +62,10 @@ class GeometryAuditTests(unittest.TestCase):
         finally:
             plt.close(fig)
         codes = {finding.code for finding in findings}
-        self.assertTrue({"GEO002", "GEO004", "GEO005"} <= codes)
+        self.assertIn("GEO004", codes)
+        self.assertNotIn("GEO002", codes)
+        self.assertNotIn("GEO005", codes)
+        self.assertEqual([item for item in findings if item.level == "错误"], [])
 
     def test_cli_does_not_replay_without_explicit_flag(self):
         # 哨兵脚本若被运行会写文件；省略 --replay 必须保持输入目录不变。
@@ -99,10 +98,26 @@ class GeometryAuditTests(unittest.TestCase):
             plt.close(fig)
         self.assertNotIn("GEO002", {finding.code for finding in findings})
 
+    def test_shared_axes_width_and_aspect_are_preserved(self):
+        # 模拟 DataFactory 的共享 x 轴布局；检查不能强制锁定主图并压窄副图。
+        fig, (ax, residual_ax) = plt.subplots(2, 1, sharex=True,
+            figsize=(3.5, 3.5), gridspec_kw={"height_ratios": [4, 1]})
+        ax.errorbar([1, 2], [3, 4], yerr=[0.1, 0.2])
+        residual_ax.errorbar([1, 2], [0.1, -0.1], yerr=[0.1, 0.1])
+        mplhep.label.exp_label(loc=1, exp="DELPHI", data=False, llabel="Open Data", ax=ax)
+        try:
+            findings = audit_figure(fig, "shared")
+            widths = [panel.get_window_extent().width for panel in (ax, residual_ax)]
+            self.assertAlmostEqual(widths[0], widths[1])
+            self.assertIsNone(ax.get_box_aspect())
+            self.assertIsNone(residual_ax.get_box_aspect())
+            self.assertNotIn("GEO002", {item.code for item in findings})
+        finally:
+            plt.close(fig)
+
     def test_missing_header_reported(self):
         fig, ax = plt.subplots(figsize=(8, 6))
         ax.plot([0.0, 1.0], [0.0, 1.0])
-        ax.set_box_aspect(3 / 4)
         try:
             findings = audit_figure(fig, "noheader")
         finally:

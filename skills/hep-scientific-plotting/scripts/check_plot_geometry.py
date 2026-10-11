@@ -3,20 +3,9 @@
 
 工作原理：以受控环境重放绘图脚本（强制 Agg backend），包裹
 ``matplotlib.figure.Figure.savefig``，在每张 figure 首次保存前完成渲染测量。
-测量内容与判定依据均来自绘图规范（SKILL.md / plotting-standard.md）的确定性配方：
-
-- GEO001：figure 渲染结果中缺少 DELPHI 标头文字；
-- GEO002：主图 axes 渲染宽高比偏离 4:3 超过容差；
-- GEO003：DELPHI 标头与 data/MC 元素的渲染 bbox 重叠；
-- GEO004：legend 与 data/MC 元素的渲染 bbox 重叠；
-- GEO005：data/MC 内容侵入顶部 header band（配方要求内容压缩在图框下部 3/5）；
-- GEO006：存在无法测量 bbox 的 data/MC artist，相关重叠检查被跳过；
-- GEO007：脚本没有产生任何 savefig 调用，无法进行渲染几何检查；
-- GEO000：脚本重放失败（语法、异常或非零退出）。
-
-命令行仅在显式 --replay 时执行独立绘图脚本并重新保存产物；不重放分析脚本。
-本工具不改源码，检查失败通过报告和退出码表达；bbox 重叠是候选问题，需视觉确认。
-findings 作为工作流"修复迭代"步骤的输入，这是 harness 验证而非 validation 函数阻断。
+只在定位具体遮挡时使用。bbox 重叠是候选提示，需要实际图像确认；不检查
+精确宽高比、固定 header band 或绘图 API，不作为正常交付的必跑门槛。
+命令行 --replay 会重新执行并保存产物，仅用于独立绘图脚本。
 """
 
 from __future__ import annotations
@@ -38,11 +27,6 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 from matplotlib.transforms import Bbox  # noqa: E402
 
-TOP_FRACTION = 2.0 / 5.0            # header band 占主图图框高度的比例（规范硬门）
-CONTENT_FRACTION = 1.0 - TOP_FRACTION  # 配方允许的内容上限：图框下部 3/5
-BAND_INTRUSION_TOLERANCE = 0.02     # 内容超过 3/5 线 2% 高度以内视为测量噪声
-ASPECT_TARGET = 4.0 / 3.0
-ASPECT_TOLERANCE = 0.02             # 渲染宽高比相对 4:3 的相对偏差容差
 OVERLAP_MIN_AREA = 1.0              # display px^2；小于该值的重叠视为测量噪声
 
 
@@ -147,24 +131,14 @@ def audit_figure(fig, figure_name: str) -> list[GeometryFinding]:
         text for ax in fig.axes for text in ax.texts if "DELPHI" in text.get_text()
     ]
     if not header_texts:
-        add("错误", "GEO001", "渲染结果中缺少 DELPHI 标头文字")
+        add("警告", "GEO001", "未找到 DELPHI 标头文字；确认图类型与实验身份，不以 API 写法判定。")
 
     # 主图 = 渲染高度最大的 axes；存在 ratio/residual 子图时仍会选中主面板。
     # 优先使用标头所属面板，避免把同高的 colorbar 选为主图。
     main_ax = header_texts[0].axes if header_texts else max(
         fig.axes, key=lambda ax: ax.get_window_extent(renderer).height
     )
-    main_box = main_ax.get_window_extent(renderer)
-    rendered_ratio = main_box.width / main_box.height
-    data_artists, has_quadmesh = _data_artists(main_ax)
-    equal_geometry = has_quadmesh and main_ax.get_aspect() == 1.0
-    if not equal_geometry and abs(rendered_ratio - ASPECT_TARGET) / ASPECT_TARGET > ASPECT_TOLERANCE:
-        add(
-            "错误",
-            "GEO002",
-            f"主图渲染宽高比为 {rendered_ratio:.3f}，偏离 4:3 超过 {ASPECT_TOLERANCE:.0%}",
-        )
-
+    data_artists, _ = _data_artists(main_ax)
     data_bboxes: list[Bbox] = []
     unmeasurable = 0
     for artist in data_artists:
@@ -192,18 +166,6 @@ def audit_figure(fig, figure_name: str) -> list[GeometryFinding]:
         if any(_overlap_area(legend_bbox, bbox) > OVERLAP_MIN_AREA for bbox in data_bboxes):
             add("警告", "GEO004", "legend 与 artist bbox 重叠；需视觉确认是否实际遮挡")
 
-    # 顶部 band 侵入检查只适用于一维内容；二维 pcolormesh 按设计填满图框，
-    # 其标头（loc=0）位于图框上沿之外，天然不构成侵入。
-    if data_bboxes and not has_quadmesh:
-        band_floor = main_box.y0 + CONTENT_FRACTION * main_box.height
-        tolerance = BAND_INTRUSION_TOLERANCE * main_box.height
-        data_top = max(bbox.y1 for bbox in data_bboxes)
-        if data_top > band_floor + tolerance:
-            add(
-                "警告",
-                "GEO005",
-                "artist bbox 超过一维顶部留白边界；需视觉区分数据与参考线/区域标记",
-            )
     return findings
 
 

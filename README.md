@@ -19,12 +19,14 @@ codex plugin add skills-hep@skills-hep
 
 项目提供分析环境和 DataFactory。渲染及几何检查使用 Matplotlib、mplhep 和 NumPy；纯静态检查使用 Python 标准库。插件不安装这些依赖，也不打包 DataFactory。
 
-## 检查
+## 开发验证
 
-在已有绘图环境中运行：
+以下测试用于修改 Skill 的检查工具后验证实现，普通绘图不要求运行 linter 或几何检查器：
 
 ```bash
 python -m unittest discover -s skills/hep-scientific-plotting/scripts -p 'test_*.py'
 ```
 
-当前项目使用新的 Git 历史，不继承原单 Skill 仓库；尚未配置远程。分析项目中的旧 Skill 路径以本地软链接保留，软链接不属于分发包。
+源仓库：[Cyz-97/skills-hep](https://github.com/Cyz-97/skills-hep)。独立维护源位于本仓库；项目内不保留同名 Skill 副本或软链接。开发时全局 Skill 入口可链接到本仓库的 `skills/hep-scientific-plotting`，软链接不属于分发包。
+
+默认首次实际渲染后查看结果，科学表达正确、可读且无关键遮挡即结束；布局建议不作为反复迭代门槛。空分母比值、错误归一化等科学风险仍需核对。
