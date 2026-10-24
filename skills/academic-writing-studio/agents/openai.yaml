@@ -1,0 +1,4 @@
+interface:
+  display_name: "学术写作工作室"
+  short_description: "协助文献调研与证据综合，按Article、Letter、综述等文体写作修订"
+  default_prompt: "使用 $academic-writing-studio，根据我的材料与本轮目标开展文献调研、证据核验或写作修订；成稿时区分文章类型，交付可追溯的结论与实际缺口。"

@@ -1,0 +1,47 @@
+# 中英术语
+
+- **Abstract / 摘要**：概括问题、方法、结果与意义的独立入口，结构服从载体（ch04）。
+- **Achievement / 研究所达成的工作**：研究解决自身目标的实际成果；贡献进一步说明它改变何种认识或应用（ch01，B2）。
+- **Active narrative wrap**：Glasman-Deal关于让信息功能及其与上下文关系可见的写作概念（references/genre-modeling.md，B2）。
+- **Article / Research Article**：本技能中指完整原创研究文章；具体刊物Article栏目的定义仍需核对（ch02）。
+- **Claim / 主张**：作者希望读者接受的回答或判断，应与证据和条件对应（ch01）。
+- **Comment / Commentary**：名称可指观点栏目，也可指发表后研究评论，按具体刊物和用途判断（ch13、ch14）。
+- **Confidence interval / 置信区间**：按频率学构造解释的区间；与可信区间区分（ch08，H3）。
+- **Correspondence / 致编辑信**：含义因刊物改变，可用于研究相关议题或文章评论；与原创研究Letter区分（ch14）。
+- **Cover letter / 投稿附信**：随稿向编辑说明贡献、适配与必要披露的材料（ch09）。
+- **Credible interval / 可信区间**：基于后验分布及指定模型/先验的区间（ch08，H3）。
+- **End Matter**：PRL中可安排专业细节的特定版面部分，政策不直接推广到其他刊物（ch12，G1）。
+- **Evidence / 证据**：支持主张的数据、文献、推导或观察及其可核查位置（ch01）。
+- **Expected / 预期**：在指定假设或模拟/统计程序下得到的预期结果（ch08）。
+- **Fiducial / 指定相空间**：以明确的运动学/对象条件定义结果适用区域（ch08）。
+- **Global significance / 全局显著性**：考虑指定搜索/扫描范围后的显著性表述（ch08，H3）。
+- **Heterogeneity / 异质性**：研究之间的设计、条件或效果差异，影响综合方法（ch03）。
+- **Letter / Research Letter**：相应刊物中报告原创结果的短格式，完整性和受众要求依栏目定义（ch12）。
+- **Local significance / 局部显著性**：在指定假设点或固定检验下的显著性（ch08，H3）。
+- **Meta-analysis / 元分析**：用明确模型定量综合可比较结果，同时处理不确定度与依赖（ch03）。
+- **Mini-review / Progress**：聚焦受限主题或近期进展的综述格式，名称及篇幅依刊物（ch03）。
+- **Narrative review / 叙述综述**：按主题解释领域知识并提出综合判断，需说明范围与选文逻辑（ch03）。
+- **Nuisance parameter / 干扰参数**：影响推断却非主要研究目标的参数，处理方式需报告（ch08，H3）。
+- **Observed / 观测**：由实际观测数据和相应程序得到的结果（ch08）。
+- **OCAR**：Schimel的Opening、Challenge、Action、Resolution叙事功能框架（ch01，B1）。
+- **Old Before New / 旧信息先于新信息**：用读者已知内容承接新内容的句间衔接原则（ch11，B4-4）。
+- **Perspective / 观点文章**：围绕明确判断组织论证、证据、反对意见与意义（ch13）。
+- **Preprint / 预印本**：公开的稿件版本，应记录与发表版的关系和评审状态（ch03、ch08）。
+- **PRISMA**：系统综述透明报告指南体系，不能替代实施方法（ch03，R1）。
+- **Proceedings / 会议论文集**：会议相关出版物；评审和原始发表地位依领域与会议而变（ch06）。
+- **Protocol / 研究方案**：陈述计划目标、设计、方法与分析的文体（ch07）。
+- **Reason / 理由**：回答为何接受主张的论点，其依据由证据提供；与证据和warrant分别检查（ch01，B4-4）。
+- **Registered Report / 注册报告**：依刊物流程在结果前审查问题与方法的文体（ch07）。
+- **Reply / 发表后回复**：回应正式评论的可发表文本，区别于审稿过程回复（ch14）。
+- **Reverse engineering / 功能逆向建模**：从匹配样例抽取文本功能并跨例检验，再用于自己的写作（references/genre-modeling.md，B2）。
+- **Reverse outline / 反向提纲**：从已有段落抽取功能和主张来检查结构（ch01、ch09）。
+- **Review / 综述**：评价和综合既有知识的文章族，子类型决定方法与报告要求（ch03）。
+- **Revision audit / 修订复核**：将关切、承诺、实际改动和证据逐项对应，并检查修改影响（references/revision-audit.md）。
+- **Roadmap / 路线文章**：围绕目标、障碍、步骤与里程碑组织未来方向（ch13）。
+- **Scoping review / 范围综述**：描绘证据范围、研究分布与概念的综合形式（ch03）。
+- **Summary paragraph**：Nature Articles开头面向广泛读者、带引用的概述段（ch04，N4）。
+- **Synthesis / 综合**：比较多项证据并形成有解释和边界的判断（ch03）。
+- **Systematic review / 系统综述**：围绕明确问题，以预设方法识别、选择、评价和综合证据（ch03）。
+- **Technical Review / 技术综述**：按可比较条件综合技术、器件、方法或性能及适用范围（ch03）。
+- **Warrant / 推断原则**：把reason与claim连接起来的一般原则，需检查合理性、限定和本例适用性（ch01，B4-4第11章）。
+- **WHY / HOW / WHAT**：按问题动机、方法路线、结果与未解决项比较论文的快速框架（references/research-workflow.md）。
