@@ -37,7 +37,7 @@
 
 ## 4. Data/MC 与拟合表达
 
-- Data 用 errorbar 展示最终值和误差；MC 用 stairs 展示中心值、无外边框的 hatched bar 展示不确定度。图例明确样本身份，避免“MC Data”。
+- Data 用 errorbar 展示最终值和误差；MC 用 stairs 展示中心值、无外边框的 hatched bar 展示不确定度，hatch 密度统一设置为 `hatch="//////////"`（10 个斜杠），包括 ratio 面板中的 MC 相对误差带。图例明确样本身份，避免“MC Data”。
 - 优先黑色 Data 与 tab10 前三色 MC，分量多时辅以线型或 hatch；使用既有可读配色也可。
 - 拟合使用上游提供的总曲线与本底曲线及其有效范围，默认总曲线黑色、本底蓝色，不额外显示信号曲线；不重新拟合或擅自外推。
 - 参数面板使用项目精度规则，显示参数、误差和 $\chi^2/\mathrm{ndf}$；SymbolFit 模型的已有公式可在 caption 说明。拟合副面板定义见第 9 节。
@@ -63,7 +63,7 @@ centers = 0.5 * (edges[:-1] + edges[1:])
 widths = np.diff(edges)
 ax.stairs(mc, edges, color="C0", label="MC")
 ax.bar(centers, 2 * mc_err, width=widths, bottom=mc - mc_err,
-       fill=False, linewidth=0, edgecolor="C0", hatch="////")
+       fill=False, linewidth=0, edgecolor="C0", hatch="//////////")
 ax.errorbar(centers, data, yerr=data_err, color="black",
             ls="", marker="o", label="Data")
 ```
@@ -80,7 +80,7 @@ ax.errorbar(centers, data, yerr=data_err, color="black",
 
 作图前确认最终值是计数、密度、效率还是修正谱，权重是否已包含，以及比较是绝对尺度还是形状。不擅自重新归一化或二次加权。weighted MC 使用上游 Sumw2 误差；非对称误差保留上下区间，派生量不由中心值补造误差。
 
-ratio 的 numerator-only 点误差和独立 denominator 相对误差带应明确拆分，同一来源只包含一次。分母误差带使用同一 bin edges，以 1 为中心的 hatch bars 表达；若采用完整 ratio 误差，caption 说明独立带的作用，避免重复计入。
+ratio 的 numerator-only 点误差和独立 denominator 相对误差带应明确拆分，同一来源只包含一次。分母误差带使用同一 bin edges，以 1 为中心的 hatch bars 表达，hatch 样式沿用第 4 节；若采用完整 ratio 误差，caption 说明独立带的作用，避免重复计入。
 
 零分母、非有限值或上游标记无效的 bin 不提供测量 ratio；显示为缺失并在 caption/报告说明，必要时以明显符号标记无效区。占位值 1 不能用来说明一致性，也不能仅因没有报错就认为有效。统计诊断与图的有效 bin 范围应一致；发现不一致交回上游核对。
 

@@ -30,7 +30,7 @@ def build_compliant_figure():
     ax.stairs(mc, edges, color="C0", label=r"$\text{Simulation}$")
     ax.bar(
         centers, 2 * mc_err, width=np.diff(edges), bottom=mc - mc_err,
-        fill=False, linewidth=0, edgecolor="C0", hatch="////", alpha=0.55,
+        fill=False, linewidth=0, edgecolor="C0", hatch="//////////", alpha=0.55,
     )
     ax.errorbar(centers, data, yerr=data_err, color="black", ls="none", marker="o")
     mplhep.label.exp_label(
