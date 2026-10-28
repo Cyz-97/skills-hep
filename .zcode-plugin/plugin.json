@@ -1,0 +1,9 @@
+{
+  "name": "skills-hep",
+  "version": "0.2.1",
+  "description": "Reusable skills for high-energy physics research: scientific plotting, literature research, and academic writing.",
+  "author": {
+    "name": "CHE Yuzhi"
+  },
+  "skills": "./skills"
+}

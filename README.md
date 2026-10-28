@@ -11,6 +11,8 @@
 
 ## 安装与首次使用
 
+### Codex
+
 在已配置 GitHub SSH 访问的环境中，将本仓库加入 Codex 的插件来源：
 
 ```bash
@@ -19,7 +21,15 @@ codex plugin marketplace add git@github.com:Cyz-97/skills-hep.git --ref main
 
 重启桌面应用，在插件目录中选择 **HEP Skills** 来源并安装 **skills-hep**，然后开启新会话。该来源由本仓库维护；安装流程见 [OpenAI 官方说明](https://developers.openai.com/plugins/build/plugins#add-a-marketplace-from-the-cli)。
 
-提供相应材料后，可直接使用以下提示词。
+### ZCode
+
+打开工作区，在 **Settings → Plugins → Create → Add marketplace** 添加 `Cyz-97/skills-hep`（也可填写本仓库的 HTTPS URL），然后安装并启用 `skills-hep`。
+
+已添加来源时，先在 **Marketplace sources** 中刷新该来源，再检查插件更新。仓库提供根目录的 `marketplace.json` 与 `.zcode-plugin/plugin.json`，供 ZCode 发现和安装；[安装及更新说明](https://zcode.z.ai/en/docs/plugin)。
+
+### 首次调用
+
+提供相应材料后，可直接使用以下提示词。ZCode 中可输入 `/` 并从 Skills 列表选择对应成员，再描述任务。
 
 绘图：
 
@@ -43,7 +53,7 @@ codex plugin marketplace add git@github.com:Cyz-97/skills-hep.git --ref main
 
 ## 开发入口
 
-成员在 `skills/<skill-name>/` 目录维护，具体任务规则在各成员文档中更新。开发时可将本地仓库加入插件来源：
+成员在 `skills/<skill-name>/` 目录维护，具体任务规则在各成员文档中更新。发布时同步根 `plugin.json`、`.zcode-plugin/plugin.json` 与根 `marketplace.json` 插件条目的版本；Codex 的市场入口保留在 `.agents/plugins/marketplace.json`。开发时可将本地仓库加入插件来源：
 
 ```bash
 codex plugin marketplace add /absolute/path/to/skills-hep

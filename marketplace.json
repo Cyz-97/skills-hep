@@ -1,0 +1,16 @@
+{
+  "name": "skills-hep",
+  "description": "High-energy physics research skills marketplace.",
+  "owner": {
+    "name": "CHE Yuzhi"
+  },
+  "plugins": [
+    {
+      "name": "skills-hep",
+      "source": "./",
+      "version": "0.2.1",
+      "description": "Reusable skills for high-energy physics research: scientific plotting, literature research, and academic writing.",
+      "category": "productivity"
+    }
+  ]
+}
