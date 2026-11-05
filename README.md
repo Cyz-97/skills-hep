@@ -1,6 +1,6 @@
 # skills-hep
 
-面向高能物理研究的 Skills 插件集合，覆盖科研绘图、文献调研和学术写作。
+面向高能物理研究的 Skills 插件集合，覆盖科研绘图、文献调研、学术写作和 Git 运维。
 
 ## 按任务选择成员
 
@@ -8,6 +8,9 @@
 |---|---|---|
 | 已有最终结果，需要绘制或审查 DELPHI 科研图 | `hep-scientific-plotting` | [任务边界与绘图指引](skills/hep-scientific-plotting/SKILL.md) |
 | 需要比较论文、综合证据，或起草、修改和核验学术稿件 | `academic-writing-studio` | [用法与案例](skills/academic-writing-studio/README.md) · [文体与任务入口](skills/academic-writing-studio/SKILL.md) |
+| 开发前创建功能、排错或测试代码分支 | `newbranch` | [命名与建分支](skills/newbranch/SKILL.md) |
+| 开发结束后按 commit type 整理提交，保留本地生成产物 | `clear-git` | [提交整理与产物处理](skills/clear-git/SKILL.md) |
+| 将当前任务分支合入指定目标，并留下详细合并说明 | `mergeto` | [合并方向与提交正文](skills/mergeto/SKILL.md) |
 
 ## 安装与首次使用
 
@@ -50,6 +53,21 @@ codex plugin marketplace add git@github.com:Cyz-97/skills-hep.git --ref main
 
 - **绘图成员：** 使用项目提供的分析环境和 DataFactory；渲染与几何检查使用 Matplotlib、mplhep 和 NumPy，纯静态检查使用 Python 标准库。插件不安装这些依赖。
 - **写作成员：** 由 Markdown 指引、参考和模板组成，无额外运行依赖；实际检索、文献读取与核验使用当前环境可用的工具。原始书籍全文与个人工作记录保留在用户材料中。
+- **Git 成员：** 仅依赖 Git；项目文件只读，不运行脚本、测试或构建。允许创建分支、暂存提交及合并等已授权的 Git 操作；[共同边界](skills/clear-git/references/git-boundaries.md)也约束 hooks、过滤器等隐式执行入口。
+
+## Git 运维用法
+
+在对话中按顺序调用，Codex 可用 `$` 选择技能，ZCode 可从 `/` 的 Skills 列表选择对应入口；这些名称无需安装为 shell 命令。
+
+```text
+$newbranch feature/photon-selection
+$clear-git
+$mergeto dev
+```
+
+`newbranch` 从当前 HEAD 或指定基点创建任务分支，使用 `feature/`、`debug/`、`test/` 等前缀，名称描述任务。`clear-git` 每种 commit type 在本轮最多提交一次；脚本生成的 JSON、ROOT、图片和 PDF 保留本地，源码与配置按实际用途识别。`mergeto dev` 表示当前分支合入 `dev`，使用 `--no-ff` 保留独立节点，正文记录动机、依据、原理、实现及验证限制。Git-only 范围内均不运行项目程序，也不代为编辑或解决源码冲突。
+
+三者默认仅处理本地状态，保留来源分支和未确认可丢弃的内容。生成产物仍未跟踪或已有产物仍被修改时会如实报告；提交整理不保证 `git status` 完全为空。新分支准备完成后，实际开发需另行描述任务。
 
 ## 开发入口
 

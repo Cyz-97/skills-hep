@@ -1,0 +1,4 @@
+interface:
+  display_name: "Merge To"
+  short_description: "以独立合并节点合入指定分支并记录完整动机、依据和过程，只操作 Git"
+  default_prompt: "使用 $mergeto dev 将当前任务分支合入 dev，以 --no-ff 保留合并节点并写入详细说明，只操作 Git。"
