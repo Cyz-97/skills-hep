@@ -102,7 +102,11 @@ ratio 的 numerator-only 点误差和独立 denominator 相对误差带应明确
 
 ## 11. 文字、单位和范围
 
-轴标签用物理名称与单位，数学变量和单位用 mathtext；纯文字可用自然文本。默认无 title/subtitle/suptitle、无坐标网格，信息放入标头、legend 或 caption。
+轴标签用物理名称与单位，数学变量和单位用 mathtext；纯文字可用自然文本。默认无坐标网格，图意放入 legend 或 caption。
+
+只有用户显式要求时，才在图片的 frame（绘图区边框）上方添加 title、subtitle 或 suptitle。默认保持无标题，包括封装自动生成的标题及通过 `ax.set_title`、`fig.suptitle`、`text` 等方式放置的等价标题。新生成图采用已有封装时，也应检查并关闭未经用户要求的自动标题。
+
+DELPHI 实验标识、Open Data/Simulation、年份与能量属于实验元数据标头，继续按第 5 节处理。审查或修改已有图时仍遵守用户指定的修改范围；用户要求保留现有标注时记录这一要求。
 
 范围覆盖有效值与误差；非负直方图优先零下限，减除或修正谱保留负值并适当显示零参考线。跨度大的正值图可用 log，含非正值时不强制 log。
 
