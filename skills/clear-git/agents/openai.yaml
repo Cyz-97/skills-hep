@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clear Git"
+  short_description: "按提交类型整理开发成果并保留本地产物，只读项目内容且只操作 Git"
+  default_prompt: "使用 $clear-git 整理当前改动，每种 commit type 本轮最多一个提交，保留生成产物，只操作 Git。"

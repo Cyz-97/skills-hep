@@ -1,0 +1,4 @@
+interface:
+  display_name: "New Branch"
+  short_description: "为功能开发、排错或测试代码创建任务分支，保留改动且只操作 Git"
+  default_prompt: "使用 $newbranch 为当前任务创建 feature/ 或 debug/ 分支；只操作 Git，不运行项目程序。"
