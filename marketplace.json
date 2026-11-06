@@ -8,8 +8,8 @@
     {
       "name": "skills-hep",
       "source": "./",
-      "version": "0.3.1",
-      "description": "Reusable skills for high-energy physics research: scientific plotting, literature research, academic writing, and Git operations.",
+      "version": "0.4.0",
+      "description": "Reusable skills for high-energy physics research: analysis scripting, scientific plotting, literature research, academic writing, and Git operations.",
       "category": "productivity"
     }
   ]
