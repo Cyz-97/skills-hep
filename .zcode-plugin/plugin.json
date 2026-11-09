@@ -1,7 +1,7 @@
 {
   "name": "skills-hep",
-  "version": "0.4.1",
-  "description": "Reusable skills for high-energy physics research: analysis scripting, scientific plotting, literature research, academic writing, and Git operations.",
+  "version": "0.5.0",
+  "description": "Reusable skills for high-energy physics research: analysis scripting, Mermaid diagrams, scientific plotting, literature research, academic writing, and Git operations.",
   "author": {
     "name": "CHE Yuzhi"
   },

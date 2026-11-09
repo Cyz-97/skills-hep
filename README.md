@@ -1,12 +1,13 @@
 # skills-hep
 
-面向高能物理研究的 Skills 插件集合，覆盖分析脚本编写、科研绘图、文献调研、学术写作和 Git 运维。
+面向高能物理研究的 Skills 插件集合，覆盖分析脚本编写、架构与流程示意图、科研绘图、文献调研、学术写作和 Git 运维。
 
 ## 按任务选择成员
 
 | 你的任务 | 使用成员 | 详细说明 |
 |---|---|---|
 | 编写或重构面向流程的 PyROOT / DataFactory 分析脚本 | `coding` | [计算分工与 PART+cell 写法](skills/coding/SKILL.md) |
+| 用 Mermaid 表达代码架构、HEP 分析流程、样本成分或资源开销 | `diagram` | [选图规则与示例](skills/diagram/SKILL.md) |
 | 已有最终结果，需要绘制或审查 DELPHI 科研图 | `hep-scientific-plotting` | [任务边界与绘图指引](skills/hep-scientific-plotting/SKILL.md) |
 | 需要比较论文、综合证据，或起草、修改和核验学术稿件 | `academic-writing-studio` | [用法与案例](skills/academic-writing-studio/README.md) · [文体与任务入口](skills/academic-writing-studio/SKILL.md) |
 | 开发前创建功能、排错或测试代码分支 | `newbranch` | [命名与建分支](skills/newbranch/SKILL.md) |
@@ -35,6 +36,8 @@ codex plugin marketplace add git@github.com:Cyz-97/skills-hep.git --ref main
 
 提供相应材料后，可直接使用以下提示词。ZCode 中可输入 `/` 并从 Skills 列表选择对应成员，再描述任务。
 
+示意图：`使用 $diagram，根据当前代码画出 Data 和 MC 从输入到物理结果的流程。`
+
 绘图：
 
 ```text
@@ -53,6 +56,7 @@ codex plugin marketplace add git@github.com:Cyz-97/skills-hep.git --ref main
 ## 依赖概览
 
 - **分析脚本成员：** 复用项目的 PyROOT、DataFactory 和 Matplotlib 环境；模块自带一个合成示例。
+- **示意图成员：** 提供 Mermaid 指引和四份可编辑示例；预览使用已有的 Mermaid 渲染器。
 - **绘图成员：** 使用项目提供的分析环境和 DataFactory；渲染与几何检查使用 Matplotlib、mplhep 和 NumPy，纯静态检查使用 Python 标准库。插件不安装这些依赖。
 - **写作成员：** 由 Markdown 指引、参考和模板组成，无额外运行依赖；实际检索、文献读取与核验使用当前环境可用的工具。原始书籍全文与个人工作记录保留在用户材料中。
 - **Git 成员：** 仅依赖 Git；项目文件只读，不运行脚本、测试或构建。允许创建分支、暂存提交及合并等已授权的 Git 操作；[共同边界](skills/clear-git/references/git-boundaries.md)也约束 hooks、过滤器等隐式执行入口。

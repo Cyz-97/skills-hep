@@ -1,0 +1,41 @@
+%% 拟议流水线 · 合成样例。矩形=脚本，圆柱=数据，六边形=外部输入，胶囊=结果。
+flowchart TB
+  raw_data[("Data · 探测器读出<br/>RAW 文件")]
+  raw_mc[("MC · 模拟读出<br/>ROOT TTree")]
+  reco["reco.py<br/>按样本分别重建"]
+  reco_data[("Data · 重建事例<br/>ROOT TTree")]
+  reco_mc[("MC · 重建与真值<br/>ROOT TTree")]
+  select["select.py<br/>应用候选事例选择"]
+  sel_data[("Data · 选后候选<br/>ROOT TTree")]
+  sel_mc[("MC · 候选与真值分母<br/>ROOT 文件")]
+  calib{{"外部 · 校准系数<br/>CSV"}}
+  analyze["analysis.py<br/>扣背景、修正响应"]
+  spectrum[("Data · 修正观测谱<br/>ROOT TH1")]
+  fit["fit.py<br/>提取物理量与不确定度"]
+  result(["拟议产出 · 测量值与结论<br/>Markdown 报告"])
+
+  raw_data --> reco
+  raw_mc --> reco
+  reco --> reco_data
+  reco --> reco_mc
+  reco_data --> select
+  reco_mc --> select
+  select --> sel_data
+  select --> sel_mc
+  %% 仅用于对齐：外部校准和两份选择产物同排；select.py 不产生校准系数。
+  select ~~~ calib
+  sel_data --> analyze
+  sel_mc --> analyze
+  calib --> analyze
+  analyze --> spectrum --> fit --> result
+
+  classDef script fill:#e4efff,stroke:#2c5492,color:#142b4c,stroke-width:1.5px
+  classDef data fill:#e2f4e8,stroke:#26704c,color:#173c2c,stroke-width:1.5px
+  classDef mc fill:#fff0d9,stroke:#a65c14,color:#572d05,stroke-width:1.5px
+  classDef external fill:#efe7fa,stroke:#7959a0,color:#412963,stroke-width:1.5px
+  classDef result_node fill:#fbe9eb,stroke:#a54457,color:#5c2531,stroke-width:1.5px
+  class reco,select,analyze,fit script
+  class raw_data,reco_data,sel_data,spectrum data
+  class raw_mc,reco_mc,sel_mc mc
+  class calib external
+  class result result_node
