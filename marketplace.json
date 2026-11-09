@@ -8,7 +8,7 @@
     {
       "name": "skills-hep",
       "source": "./",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "description": "Reusable skills for high-energy physics research: analysis scripting, Mermaid diagrams, scientific plotting, literature research, academic writing, and Git operations.",
       "category": "productivity"
     }

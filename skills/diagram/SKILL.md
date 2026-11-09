@@ -17,7 +17,7 @@ description: 用 Mermaid 展示现有或拟议的代码架构、HEP 分析流程
 | 已知数量分别流向哪里？ | Sankey，边对应同单位、可加的流量 |
 
 1. **取材。** 现状图从代码入口、配置和实际读写处取证；设计图标「拟议」，待定接口也标出。数据图注明数值来源，演示值标「合成」。
-2. **出图。** 一图突出一种关系。调用顺序和 I/O 都需要详述时，分别画时序图和流水线。交付可编辑的 `.mmd` 或 Mermaid 代码块，证据和口径放图外。
-3. **预览。** 用可用的目标渲染器检查标签、箭头和布局。Pele 扩展按目标渲染器选用；正式科研结果图用 `hep-scientific-plotting`。
+2. **出图。** 架构与 I/O 描述同一条流水线时，默认合画。以数据流为主线，在处理节点标注脚本名和职责，用独立线型表示函数提供关系，按 [HEP 分析流水线](references/hep-pipeline.md) 标注箭头。需要详述调用先后、返回或并行时，再补时序图。交付可编辑的 `.mmd` 或 Mermaid 代码块。
+3. **预览。** 优先复用当前会话已验证的目标渲染器。渲染后核对箭头两端、分支汇合、边的遮挡和标签换行。Pele 扩展按目标渲染器选用。正式科研结果图用 `hep-scientific-plotting`。
 
 图型参考：[Pele Examples](https://pele.run/examples) · [Mermaid 语法](https://mermaid.js.org/intro/syntax-reference.html)。
